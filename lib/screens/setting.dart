@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:travel_app/screens/manager/app_manager/app_cubit.dart';
+import 'package:travel_app/screens/notification.dart';
 import 'package:travel_app/screens/select_country.dart';
 import 'package:travel_app/shared.dart';
 
@@ -17,14 +19,14 @@ class NewsSettingsScreen extends StatefulWidget {
 class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Settings'),
-        elevation: 0,
-      ),
-      body: Column(
+    return
+      Drawer(
+      child: ListView(
         children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20,bottom: 10),
+            child: Center(child: Text("Setting",style: Theme.of(context).textTheme.titleMedium)),
+          ),
           settingItem(
             onTap: () {
               Navigator.push(
@@ -39,9 +41,19 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
             value: PreferenceUtils.getString(PrefKeys.newsCountry),
           ),
           settingItem(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: NotificationScreen(),
+                    duration: Duration(milliseconds: 500)
+                ),
+              );
+            },
             icon: Icons.notifications,
             title: 'Notifications',
+            value: PreferenceUtils.getString(PrefKeys.notification),
           ),
           settingItem(
               onTap: () => showChangeThemeBottomSheet(),
@@ -50,7 +62,7 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
               value: PreferenceUtils.getBool(PrefKeys.darkTheme)
                   ? 'dark'
                   : 'light'),
-          
+
           settingItem(
               onTap: () {},
               icon: Icons.language_rounded,
@@ -85,7 +97,7 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
             const Spacer(),
             Text(
               value,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleSmall,
 
               ),
 
@@ -102,21 +114,21 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return
+          Container(
           height: 200,
           decoration: BoxDecoration(
-            color: Colors.transparent,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                topRight:Radius.circular(25) ),
-          ),
+                topLeft: Radius.circular(35),
+                topRight:Radius.circular(35) ),
+            ),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
+              children:[
                 const SizedBox(height: 20),
-                const Text('Select Theme'),
+                 Text('Select Theme',style: Theme.of(context).textTheme.titleSmall,),
                 InkWell(
                   onTap: () async {
                     await PreferenceUtils.setBool(
@@ -128,11 +140,9 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(10),
-                    child: const Text(
+                    child:  Text(
                       'Light',
-                      style: TextStyle(
-                        fontSize: 22,
-                      ),
+                   style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                 ),
@@ -149,11 +159,9 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(10),
                     // color: Colors.grey[200],
-                    child: const Text(
+                    child:  Text(
                       'Dark',
-                      style: TextStyle(
-                        fontSize: 22,
-                      ),
+                    style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                 ),

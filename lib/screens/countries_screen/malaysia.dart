@@ -48,13 +48,14 @@ class _MalaysiaScreenState extends State<MalaysiaScreen> {
               children: [
                 const Positioned.fill(
                   child: FadeInImage(
-                    image: AssetImage("assets/images/welcome_three.png"),
+                    image:
+                    NetworkImage("https://img.freepik.com/free-photo/aerial-view-tokyo-cityscape-with-fuji-mountain-japan_335224-148.jpg"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
                     // imageErrorBuilder: (context, error, stackTrace) {
                     //   return Image.asset('assets/images/background.jpg',
                     //       fit: BoxFit.cover);
                     // },
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Positioned(
@@ -97,7 +98,7 @@ class _MalaysiaScreenState extends State<MalaysiaScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    AppHeaderText(text: "Malaysia", color: Colors.black87),
+                                    AppHeaderText(text: "Malaysia"),
 
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
@@ -117,7 +118,7 @@ class _MalaysiaScreenState extends State<MalaysiaScreen> {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5,),
-                                AppContentText(text: "secret sanctuary along Jumeirah Beach Road, truly lives up to its name. You’ll be enthralled by the stunning sunset views that this beach has to offer as the golden sun sets below the horizon, casting vibrant hues across the sky.",
+                                AppContentText(text: "A potpourri of all things Asian, Malaysia is a country in Southeast Asia. An intriguing blend of diverse wildlife, idyllic islands, magnanimous mountains, rainforests, and rich culinary landscape makes it one of the most visited tourist places in Asia.",
                                 ),
                                 SizedBox(height: 20,),
                                 Text("Best Place To Visit",

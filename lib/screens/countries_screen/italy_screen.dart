@@ -48,13 +48,14 @@ class _ItalyScreenState extends State<ItalyScreen> {
               children: [
                 const Positioned.fill(
                   child: FadeInImage(
-                    image: AssetImage("assets/images/welcome_three.png"),
+                    image:
+                    NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWyUmFI_tyCE6AP6Gw9PGz--34ldhXslyaIA&usqp=CAU"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
                     // imageErrorBuilder: (context, error, stackTrace) {
                     //   return Image.asset('assets/images/background.jpg',
                     //       fit: BoxFit.cover);
                     // },
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Positioned(
@@ -97,7 +98,7 @@ class _ItalyScreenState extends State<ItalyScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    AppHeaderText(text: "Italy", color: Colors.black87),
+                                    AppHeaderText(text: "Italy"),
 
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
@@ -117,7 +118,7 @@ class _ItalyScreenState extends State<ItalyScreen> {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5,),
-                                AppContentText(text: "secret sanctuary along Jumeirah Beach Road, truly lives up to its name. You’ll be enthralled by the stunning sunset views that this beach has to offer as the golden sun sets below the horizon, casting vibrant hues across the sky.",
+                                AppContentText(text: "Nestled in the heart of southern Europe, Italy graces the European continent with its distinctive boot-shaped form. It is an unrivaled repository of cultural treasures.",
                                 ),
                                 SizedBox(height: 20,),
                                 Text("Best Place To Visit",

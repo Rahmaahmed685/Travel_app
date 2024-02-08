@@ -48,13 +48,11 @@ class _ThailandScreenState extends State<ThailandScreen> {
               children: [
                 const Positioned.fill(
                   child: FadeInImage(
-                    image: AssetImage("assets/images/welcome_three.png"),
+                    image:
+                    NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHC6qC77h6g01dADPXS7ctJ67FOTWk4DVS9A&usqp=CAU"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
-                    // imageErrorBuilder: (context, error, stackTrace) {
-                    //   return Image.asset('assets/images/background.jpg',
-                    //       fit: BoxFit.cover);
-                    // },
-                    fit: BoxFit.cover,
+
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Positioned(
@@ -97,7 +95,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    AppHeaderText(text: "Thailand", color: Colors.black87),
+                                    AppHeaderText(text: "Thailand"),
 
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
@@ -117,7 +115,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5,),
-                                AppContentText(text: "secret sanctuary along Jumeirah Beach Road, truly lives up to its name. You’ll be enthralled by the stunning sunset views that this beach has to offer as the golden sun sets below the horizon, casting vibrant hues across the sky.",
+                                AppContentText(text: "Thailand is a Southeast Asian country and one of Asia’s most popular tourist destinations, with stunning beaches, vibrant nightlife, and a backpacker-friendly atmosphere. Sharing borders with Myanmar, Laos, Cambodia, and Malaysia, it is one of the top countries for exploring this region.",
                                 ),
                                 SizedBox(height: 20,),
                                 Text("Best Place To Visit",

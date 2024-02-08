@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_transition_plus/flutter_page_transition_plus.dart';
 import 'package:lottie/lottie.dart';
@@ -44,16 +45,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   ];
   List exploreImage =[
-    "assets/images/welcome_one.png",
-    "assets/images/welcome_three.png",
-    "assets/images/welcome_two.png",
-    "assets/images/welcome_one.png",
-    "assets/images/welcome_one.png",
-    "assets/images/welcome_three.png",
-    "assets/images/welcome_two.png",
-    "assets/images/welcome_one.png",
-    "assets/images/welcome_one.png",
-    "assets/images/welcome_three.png",
+    "https://t4.ftcdn.net/jpg/02/74/93/29/360_F_274932952_WaDiDy54aNkqTn2C7D2vBDir5zBCIOSe.jpg",
+    "https://t3.ftcdn.net/jpg/01/01/14/12/360_F_101141241_KuMSNHvZaXQL2yQFWbLQwxMwdUozduzo.jpg",
+    "https://www.etiasfrance.com/wp-content/uploads/sites/35/2019/12/france-most-visited-cities.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWyUmFI_tyCE6AP6Gw9PGz--34ldhXslyaIA&usqp=CAU",
+    "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg",
+    "https://cdn1.ntv.com.tr/gorsel/8L3tv6U1zU6jq6DvWwMllQ.jpg?width=1000&mode=crop&scale=both",
+    "https://cdn.britannica.com/68/179868-138-F4FC616A/Overview-discussion-Southern-Alps-warming-New-Zealand.jpg?w=800&h=450&c=crop",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT18sKlmSZWJEXgX-KZCc5S3AnqgMz0W9CjHQ&usqp=CAU",
+    "https://www.myglobalviewpoint.com/wp-content/uploads/2023/09/Most-Beautiful-Places-in-the-Maldives-featured.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHC6qC77h6g01dADPXS7ctJ67FOTWk4DVS9A&usqp=CAU",
   ];
   List screens = [
     AustraliaScreen(),
@@ -73,26 +74,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
+      drawer: NewsSettingsScreen(),
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: 50,
-        actions: [
-          Padding(
-              padding: const EdgeInsets.all(10),
-              child: IconButton(
-                  icon: Icon(
-                    Icons.settings,
-                    size: 30,),
-                  onPressed: () {
-                    Navigator.push(
-                      context, (MaterialPageRoute(
-                        builder: (context) => NewsSettingsScreen()
-                    )
-                    ),
-                    );
-                  })
-          ),
-        ],
       ),
       body: ListView(
         children: [
@@ -100,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: AppHeaderText(text: "Discover", color: Colors.black),
+            child: AppHeaderText(text: "Discover"),
           ),
 
           Padding(
@@ -108,7 +93,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: Container(
               child: TabBar(
                   labelPadding: EdgeInsets.only(left: 0, right: 20),
-                  labelColor:  PreferenceUtils.getBool(PrefKeys.darkTheme)? Colors.white: Colors.black,
+                  labelColor:  PreferenceUtils.getBool(PrefKeys.darkTheme)
+                      ? Colors.white
+                      : Colors.black,
                   unselectedLabelColor: Colors.grey,
                   isScrollable: true,
                   dividerColor: Colors.transparent,
@@ -166,11 +153,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(top: 10, right: 10,left: 8),
             child: Row(children: [
               Text("Explore More", style: Theme.of(context).textTheme.titleMedium,),
-
-
-
               Spacer(),
-              Text("See all", style: Theme.of(context).textTheme.titleSmall, ),
+              Text("See all", style: TextStyle(color: Colors.white) ),
             ],),
           ),
           SizedBox(
@@ -189,8 +173,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         PageTransition(
                             type: PageTransitionType.bottomToTop,
                             child: screens[index],
-                            // inheritTheme: true,
-                            // ctx: context
                             duration: Duration(milliseconds: 500)
                         ),
                       );
@@ -226,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(image,fit: BoxFit.fill,)),
+                  child: Image.network(image, fit: BoxFit.fill)),
             ),
             SizedBox(height: 10,),
             Text("$title"),

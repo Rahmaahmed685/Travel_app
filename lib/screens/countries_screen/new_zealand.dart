@@ -48,13 +48,14 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
               children: [
                 const Positioned.fill(
                   child: FadeInImage(
-                    image: AssetImage("assets/images/welcome_three.png"),
+                    image:
+                    NetworkImage("https://cdn.britannica.com/68/179868-138-F4FC616A/Overview-discussion-Southern-Alps-warming-New-Zealand.jpg?w=800&h=450&c=crop"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
                     // imageErrorBuilder: (context, error, stackTrace) {
                     //   return Image.asset('assets/images/background.jpg',
                     //       fit: BoxFit.cover);
                     // },
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Positioned(
@@ -97,7 +98,7 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    AppHeaderText(text: "NewZealand", color: Colors.black87),
+                                    AppHeaderText(text: "NewZealand"),
 
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
@@ -117,7 +118,7 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5,),
-                                AppContentText(text: "secret sanctuary along Jumeirah Beach Road, truly lives up to its name. You’ll be enthralled by the stunning sunset views that this beach has to offer as the golden sun sets below the horizon, casting vibrant hues across the sky.",
+                                AppContentText(text: "New Zealand lies to the southwest of the Pacific Ocean and promises breathtaking landscapes adorned with picturesque coastlines and the mightiest mountains.",
                                 ),
                                 SizedBox(height: 20,),
                                 Text("Best Place To Visit",

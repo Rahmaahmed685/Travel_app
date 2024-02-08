@@ -49,13 +49,14 @@ class _EgyptScreenState extends State<EgyptScreen> {
               children: [
                 const Positioned.fill(
                   child: FadeInImage(
-                    image: AssetImage("assets/images/welcome_three.png"),
+                    image:
+                    NetworkImage("https://t3.ftcdn.net/jpg/01/01/14/12/360_F_101141241_KuMSNHvZaXQL2yQFWbLQwxMwdUozduzo.jpg"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
                     // imageErrorBuilder: (context, error, stackTrace) {
                     //   return Image.asset('assets/images/background.jpg',
                     //       fit: BoxFit.cover);
                     // },
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Positioned(
@@ -98,7 +99,7 @@ class _EgyptScreenState extends State<EgyptScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    AppHeaderText(text: "Egypt", color: Colors.black87),
+                                    AppHeaderText(text: "Egypt"),
 
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
@@ -118,7 +119,7 @@ class _EgyptScreenState extends State<EgyptScreen> {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5,),
-                                AppContentText(text: "secret sanctuary along Jumeirah Beach Road, truly lives up to its name. You’ll be enthralled by the stunning sunset views that this beach has to offer as the golden sun sets below the horizon, casting vibrant hues across the sky.",
+                                AppContentText(text: " Egypt is home to some of the world's most iconic ancient landmarks, including the Great Pyramids of Giza which is the only remaining wonder of the ancient world.",
                                 ),
                                 SizedBox(height: 20,),
                                 Text("Best Place To Visit",

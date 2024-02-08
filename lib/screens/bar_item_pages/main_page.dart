@@ -2,6 +2,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
 import 'package:travel_app/screens/bar_item_pages/secound_page.dart';
+import 'package:travel_app/test_firebase/favorite_screen.dart';
+import 'package:travel_app/test_firebase/test_fav.dart';
 import 'package:travel_app/search_bar/search_screen.dart';
 
 import '../../shared.dart';
@@ -24,13 +26,13 @@ class _MainPageState extends State<MainPage> {
     HomeScreen(),
     SecoundPage(),
     SearchScreen(),
-    SizedBox(),
+    FavoriteScreen()
   ];
   final items = <Widget> [
     Icon(Icons.apps,),
     Icon(Icons.bar_chart_sharp,),
     Icon(Icons.search_rounded,),
-    Icon(Icons.perm_identity,),
+    Icon(Icons.favorite_border,),
   ];
   int currentIndex=0;
   @override
@@ -47,7 +49,9 @@ class _MainPageState extends State<MainPage> {
             child: CurvedNavigationBar(
               animationCurve: Curves.easeInOut,
               animationDuration: Duration(milliseconds: 300),
-              color:  PreferenceUtils.getBool(PrefKeys.darkTheme)? Colors.white: Colors.blue,
+              color:  PreferenceUtils.getBool(PrefKeys.darkTheme)?
+              Color(0XFF95d5b2):
+              Colors.blue,
               backgroundColor:  PreferenceUtils.getBool(PrefKeys.darkTheme)? Colors.black: Colors.transparent,
               height: 60,
                 index: currentIndex,

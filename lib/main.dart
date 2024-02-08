@@ -1,13 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
 import 'package:travel_app/screens/bar_item_pages/main_page.dart';
 import 'package:travel_app/screens/countries_screen/australia.dart';
+import 'package:travel_app/test_firebase/favorite_screen.dart';
 import 'package:travel_app/screens/manager/app_manager/app_cubit.dart';
+import 'package:travel_app/screens/manager/login/login.dart';
 import 'package:travel_app/screens/setting.dart';
 import 'package:travel_app/shared.dart';
 import 'package:travel_app/screens/welcome_page.dart';
 import 'package:travel_app/search_bar/search_screen.dart';
+import 'package:travel_app/test_firebase/home_note.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,15 +54,16 @@ class MyApp extends StatelessWidget {
                 scaffoldBackgroundColor: Colors.white,
                 textTheme: TextTheme(
                     titleSmall: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 14,
+                      color: Color(0XFF0096c7),
+                      fontSize: 15,
                     ),
                   titleMedium: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 18
+                    color: Color(0XFF023e8a),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
                     titleLarge: TextStyle(
-                        color: Colors.blue,
+                        color: Color(0XFF03045e),
                         fontSize: 30,
                       fontWeight: FontWeight.bold
                     )
@@ -81,13 +87,13 @@ class MyApp extends StatelessWidget {
                   scaffoldBackgroundColor: Colors.black87,
                   textTheme: TextTheme(
                       titleSmall: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
+                          color: Color(0XFF95d5b2),
+                          fontSize: 15,
                       ),
               titleMedium: TextStyle(
               color: Colors.white,
-                  fontSize: 19,
-                fontWeight: FontWeight.w700
+                  fontSize: 20,
+                fontWeight: FontWeight.w500
               ),
                       titleLarge: TextStyle(
                           color: Colors.white,
@@ -95,14 +101,19 @@ class MyApp extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       )
           ),
-                iconTheme: IconThemeData(color: Colors.white)
+                iconTheme: IconThemeData(color:Color(0XFF95d5b2))
               ),
 
               themeMode: PreferenceUtils.getBool(PrefKeys.darkTheme)
                   ? ThemeMode.dark
                   : ThemeMode.light,
               debugShowCheckedModeBanner: false,
-              home:MainPage()
+              home:
+              //Basic(),
+              MainPage(),
+              // FirebaseAuth.instance.currentUser == null ?
+              // LoginScreen():
+              //  THomeScreen(),
           );
         },
       ),

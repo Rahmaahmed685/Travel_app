@@ -48,13 +48,14 @@ class _SingaporeScreenState extends State<SingaporeScreen> {
               children: [
                 const Positioned.fill(
                   child: FadeInImage(
-                    image: AssetImage("assets/images/welcome_three.png"),
+                    image:
+                    NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT18sKlmSZWJEXgX-KZCc5S3AnqgMz0W9CjHQ&usqp=CAU"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
                     // imageErrorBuilder: (context, error, stackTrace) {
                     //   return Image.asset('assets/images/background.jpg',
                     //       fit: BoxFit.cover);
                     // },
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Positioned(
@@ -97,7 +98,7 @@ class _SingaporeScreenState extends State<SingaporeScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    AppHeaderText(text: "Singapore", color: Colors.black87),
+                                    AppHeaderText(text: "Singapore"),
 
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
@@ -117,7 +118,7 @@ class _SingaporeScreenState extends State<SingaporeScreen> {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5,),
-                                AppContentText(text: "secret sanctuary along Jumeirah Beach Road, truly lives up to its name. You’ll be enthralled by the stunning sunset views that this beach has to offer as the golden sun sets below the horizon, casting vibrant hues across the sky.",
+                                AppContentText(text: "Best described as a microcosm of modern Asia, Singapore is a melting pot of culture and history, and an extravaganza of culinary delights. Officially known as the Republic of Singapore, it is both a city and a country located in Southeast Asia.",
                                 ),
                                 SizedBox(height: 20,),
                                 Text("Best Place To Visit",

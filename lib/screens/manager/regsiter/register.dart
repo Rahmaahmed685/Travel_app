@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
+import 'package:travel_app/screens/manager/regsiter/register_cubit.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -8,15 +11,15 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final nameController = TextEditingController();
-  final phoneController = TextEditingController();
+  final titleController = TextEditingController();
+  final addressController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
 
   final cubit = RegisterCubit();
 
-
+bool isFavorite =false;
   @override
   Widget build(BuildContext context) {
     return
@@ -34,31 +37,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Scaffold(
             appBar: AppBar(
               title: const Text("Register"),
+              actions: [
+                IconButton(onPressed: (){
+                  Navigator.push(
+                      context, (MaterialPageRoute(
+                      builder: (context) => HomeScreen())));
+                },
+                    icon: Icon(Icons.ice_skating))
+              ],
             ),
             body: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
+                  IconButton(onPressed: (){
+                    setState(() {
+                      isFavorite =true;
+                    });
+                  },
+                      icon: Icon(Icons.favorite)),
                   TextFormField(
-                    controller: nameController,
+                    controller: addressController,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
-                      labelText: 'Name',
+                      labelText: 'address',
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.person),
                     ),
                   ),
-                  const SizedBox(height: 15),
                   TextFormField(
-                    controller: phoneController,
+                    controller: titleController,
                     textInputAction: TextInputAction.next,
-                    maxLength: 11,
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
-                      labelText: 'Phone',
+                      labelText: 'title',
                       border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.phone),
+                      prefixIcon: Icon(Icons.person),
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -110,30 +125,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void onRegisterSuccess() {
     cubit.saveUserData(
-      name: nameController.text,
-      phone: phoneController.text,
+      title: titleController.text,
+      address: addressController.text,
       email: emailController.text,
     );
-    Fluttertoast.showToast(msg: "Account Created!");
+    print('accont created');
     Navigator.pop(context);
   }
 
   @override
   void dispose() {
     super.dispose();
-    nameController.dispose();
-    phoneController.dispose();
+    titleController.dispose();
+    addressController.dispose();
     emailController.dispose();
     passwordController.dispose();
   }
 
   onStateChange(state) {
-
-    if(state is RegisterSuccessState){
+    if (state is RegisterSuccessState) {
       onRegisterSuccess();
-
-    }else if(state is RegisterFailureState){
-      Fluttertoast.showToast(msg: state.errorMessage);
+    } else if (state is RegisterFailureState) {
+      print("error=>" + state.errorMessage);
+      ;
     }
   }
-
+}

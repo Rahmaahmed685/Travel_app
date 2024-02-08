@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:travel_app/model/place.dart';
 import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
 import 'package:travel_app/shared.dart';
 import 'package:travel_app/widgets/app_header_text.dart';
@@ -14,7 +16,11 @@ class AustraliaScreen extends StatefulWidget {
 }
 
 class _AustraliaScreenState extends State<AustraliaScreen> {
+  List<Place> myFavorite = [];
+
   int gottenStars = 3;
+  int index = 0;
+  bool isFavorited = false;
   List title =[
     "Kayaking",
     "Snorkeling",
@@ -34,6 +40,13 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
     SizedBox(),
     SizedBox(),
   ];
+  final titleController = TextEditingController();
+  final contentController = TextEditingController();
+  final testController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
+
+  final firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,13 +61,14 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
         children: [
           const Positioned.fill(
             child: FadeInImage(
-              image: AssetImage("assets/images/welcome_three.png"),
-              placeholder: const AssetImage("assets/images/loadingimage.png"),
+              image:
+                  NetworkImage("https://img.freepik.com/free-photo/aerial-view-tokyo-cityscape-with-fuji-mountain-japan_335224-148.jpg"),
+                  placeholder: const AssetImage("assets/images/loadingimage.png"),
               // imageErrorBuilder: (context, error, stackTrace) {
               //   return Image.asset('assets/images/background.jpg',
               //       fit: BoxFit.cover);
               // },
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
           Positioned(
@@ -97,9 +111,19 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              AppHeaderText(text: "Australia", color: Colors.black87),
+                              AppHeaderText(text: "Australia"),
 
-                              IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
+                              IconButton(
+                                onPressed: () {
+                                  isFavorited
+                                      ? removeFromFavScreen(index)
+                                      :addToFavScreen();
+                                  setState(() => isFavorited = !isFavorited);
+                                },
+                                icon: isFavorited
+                                    ? Icon(Icons.favorite, color: Colors.red,)
+                                    : Icon(Icons.favorite_border),
+                              ),
                             ],
                           ),
                           SizedBox(height: 7,),
@@ -117,7 +141,7 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                              style: Theme.of(context).textTheme.titleMedium,
                            ),
                            SizedBox(height: 5,),
-                            AppContentText(text: "secret sanctuary along Jumeirah Beach Road, truly lives up to its name. You’ll be enthralled by the stunning sunset views that this beach has to offer as the golden sun sets below the horizon, casting vibrant hues across the sky.",
+                            AppContentText(text: "A land of breathtaking contrasts, Australia beckons with its unrivaled natural wonders, vibrant cities, and diverse cultural tapestry. ",
                                ),
                       SizedBox(height: 20,),
                             Text("Best Place To Visit",
@@ -207,4 +231,32 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
     )
     );
   }
+
+  removeFromFavScreen(int index) {
+    firestore.collection("fav")
+        .doc(myFavorite[index].id)
+        .delete();
+    myFavorite.removeAt(index);
+    setState(() {});
+  }
+
+  addToFavScreen() {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+
+    String title = titleController.text;
+
+    String address = contentController.text;
+    String test = testController.text;
+    bool isFavorite = true;
+    String id = DateTime.now().millisecondsSinceEpoch.toString();
+
+    final note = Place(id, title, address,test,isFavorite);
+
+    //NoteDatabase.insertNotes(note);
+
+    firestore.collection('fav').doc(id).set(note.toMap());
+  }
 }
+

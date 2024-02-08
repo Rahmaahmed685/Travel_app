@@ -48,13 +48,14 @@ class _FranceScreenState extends State<FranceScreen> {
               children: [
                 const Positioned.fill(
                   child: FadeInImage(
-                    image: AssetImage("assets/images/welcome_three.png"),
+                    image:
+                    NetworkImage("https://www.etiasfrance.com/wp-content/uploads/sites/35/2019/12/france-most-visited-cities.jpg"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
                     // imageErrorBuilder: (context, error, stackTrace) {
                     //   return Image.asset('assets/images/background.jpg',
                     //       fit: BoxFit.cover);
                     // },
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Positioned(
@@ -97,7 +98,7 @@ class _FranceScreenState extends State<FranceScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    AppHeaderText(text: "France", color: Colors.black87),
+                                    AppHeaderText(text: "France"),
 
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
@@ -117,7 +118,7 @@ class _FranceScreenState extends State<FranceScreen> {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5,),
-                                AppContentText(text: "secret sanctuary along Jumeirah Beach Road, truly lives up to its name. You’ll be enthralled by the stunning sunset views that this beach has to offer as the golden sun sets below the horizon, casting vibrant hues across the sky.",
+                                AppContentText(text: "Renowned as the world's most famous and most visited tourist destination, France is nestled in Western Europe harboring some of the greatest treasure troves.",
                                 ),
                                 SizedBox(height: 20,),
                                 Text("Best Place To Visit",

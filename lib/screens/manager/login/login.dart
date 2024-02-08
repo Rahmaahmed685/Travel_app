@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:travel_app/screens/bar_item_pages/main_page.dart';
 
-import 'bar_item_pages/home_screen.dart';
-import 'manager/regsiter/register.dart';
+import '../../bar_item_pages/home_screen.dart';
+import '../regsiter/register.dart';
+import 'login_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -125,11 +128,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.all(10),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ForgetScreen(),
-                                  ));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) => ForgetScreen(),
+                              //     ));
                             },
                             child: Align(
                               alignment: Alignment.center,
@@ -198,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void onLogginSuccess() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        context, MaterialPageRoute(builder: (context) => MainPage()));
   }
 
   void displayToast(String message) {

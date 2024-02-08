@@ -13,7 +13,7 @@ class TFavoriteScreen extends StatefulWidget {
 }
 
 class _TFavoriteScreenState extends State<TFavoriteScreen> {
-  List<Note> myFavorite = [];
+  List<Place> myFavorite = [];
   final firestore = FirebaseFirestore.instance;
 
   @override
@@ -33,7 +33,7 @@ class _TFavoriteScreenState extends State<TFavoriteScreen> {
         .then((value) {
       myFavorite.clear();
       for (var document in value.docs) {
-        final note = Note.fromMap(document.data());
+        final note = Place.fromMap(document.data());
         myFavorite.add(note);
       }
       setState(() {});

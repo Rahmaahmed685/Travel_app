@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/model/place.dart';
+import 'package:travel_app/test_firebase/note.dart';
 
 import '../model/rating.dart';
 import '../shared.dart';
@@ -69,7 +70,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         padding: const EdgeInsets.all(10),
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.grey[400],
+              color: PreferenceUtils.getBool(PrefKeys.darkTheme)
+             ?  Color(0XFFd8f3dc).withOpacity(0.6)
+            :  Colors.grey[200],
+
               borderRadius: BorderRadius.circular(15)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +89,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         height: 200,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.asset("assets/images/mountain.png",
+                            child: Image.network(myFavorite[index].image,
                               fit: BoxFit.fill,)),
                       ),
 
