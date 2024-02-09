@@ -19,9 +19,11 @@ class THomeScreen extends StatefulWidget {
 
 class _THomeScreenState extends State<THomeScreen> {
   List<Note> myNotes = [];
+  List<Note> myFavorite = [];
+
   final firestore = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
-
+ bool isFavorited=false;
   @override
   void initState() {
     super.initState();
@@ -103,7 +105,9 @@ class _THomeScreenState extends State<THomeScreen> {
     );
   }
 
-  Widget buildNoteItem(int index) {
+  Widget buildNoteItem(
+      int index,
+      ) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(10),
@@ -113,6 +117,18 @@ class _THomeScreenState extends State<THomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          IconButton(
+            onPressed: () {
+              isFavorited
+                  ? removeFromFavScreen(index)
+                  : addToFavScreen(index);
+              setState(() => isFavorited = !isFavorited);
+            },
+            icon: isFavorited
+                ? Icon(Icons.favorite, color: Colors.red,)
+                : Icon(Icons.favorite_border),
+          ),
+          const SizedBox(height: 10),
           Image.network(
             myNotes[index].image,
             width:double.infinity,
@@ -181,6 +197,34 @@ class _THomeScreenState extends State<THomeScreen> {
     );
   }
 
+
+  removeFromFavScreen(int index) {
+    firestore
+        .collection("fav")
+        .doc(myFavorite[index].id)
+        .delete();
+    //NoteDatabase.deleteNote(myFavorite[index].id);
+    myFavorite.removeAt(index);
+    setState(() {});
+  }
+
+   addToFavScreen(int index) {
+    String title = myNotes[index].title;
+
+    String content = myNotes[index].content;
+    String image = myNotes[index].image;
+    bool isFavorite = true;
+    String id = DateTime
+        .now()
+        .millisecondsSinceEpoch
+        .toString();
+
+    final note = Note(id, title, content, isFavorite,image);
+
+    //NoteDatabase.insertNotes(note);
+
+    firestore.collection('fav').doc(id).set(note.toMap());
+  }
   void openAddNoteScreen() {
     Navigator.push(
       context,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:travel_app/model/place.dart';
 import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
 import 'package:travel_app/shared.dart';
@@ -56,7 +57,7 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
     //backgroundColor: Colors.white,
       floating: false,
       pinned: false,
-      expandedHeight: 400,
+      expandedHeight: 400.h,
       flexibleSpace: Stack(
         children: [
           const Positioned.fill(
@@ -64,16 +65,12 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
               image:
                   NetworkImage("https://img.freepik.com/free-photo/aerial-view-tokyo-cityscape-with-fuji-mountain-japan_335224-148.jpg"),
                   placeholder: const AssetImage("assets/images/loadingimage.png"),
-              // imageErrorBuilder: (context, error, stackTrace) {
-              //   return Image.asset('assets/images/background.jpg',
-              //       fit: BoxFit.cover);
-              // },
               fit: BoxFit.fill,
             ),
           ),
           Positioned(
             child: Container(
-              height: 33,
+              height: 33.h,
               decoration: BoxDecoration(
                 color: PreferenceUtils.getBool(PrefKeys.darkTheme)
                     ? Colors.black
@@ -96,7 +93,7 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Container(
-                      height: 1000,
+                      height: 1000.h,
                       decoration: BoxDecoration(
                         color:  PreferenceUtils.getBool(PrefKeys.darkTheme)
                             ? Colors.black
@@ -126,7 +123,7 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 7,),
+                          SizedBox(height: 7.h,),
                           Row(children: [
                             Icon(Icons.location_on,
                               color: PreferenceUtils.getBool(PrefKeys.darkTheme)
@@ -135,15 +132,15 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                               size: 20,),
                             AppContentText(text: "USA, California",)
                           ],),
-                          SizedBox(height: 7,),
+                          SizedBox(height: 7.h,),
 
                            Text("About :",
                              style: Theme.of(context).textTheme.titleMedium,
                            ),
-                           SizedBox(height: 5,),
+                           SizedBox(height: 5.h,),
                             AppContentText(text: "A land of breathtaking contrasts, Australia beckons with its unrivaled natural wonders, vibrant cities, and diverse cultural tapestry. ",
                                ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 20.h,),
                             Text("Best Place To Visit",
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
@@ -152,14 +149,14 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                                ),
 
                             SizedBox(
-                              height: 270,
+                              height: 270.h,
                               child:ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: title.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding:EdgeInsets.only(right: 10,bottom: 20),
-                                      child: ExploreItems(
+                                      child: SubItems(
                                         title: title[index],
                                         color: Colors.purple.withOpacity(0.5),
                                         image: exploreImage[index],
@@ -193,7 +190,7 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
 
     );
   }
-  Widget ExploreItems({
+  Widget SubItems({
     required String title,
     required Color color,
     required String image,
@@ -208,8 +205,8 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
             Stack(
               alignment: Alignment.bottomLeft,
               children:[ Container(
-                height: 200,
-                width: 150,
+                height: 200.h,
+                width: 150.w,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),

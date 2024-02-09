@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../shared.dart';
 import '../../widgets/app_header_text.dart';
@@ -44,7 +45,7 @@ class _EgyptScreenState extends State<EgyptScreen> {
             //backgroundColor: Colors.white,
             floating: false,
             pinned: false,
-            expandedHeight: 400,
+            expandedHeight: 400.h,
             flexibleSpace: Stack(
               children: [
                 const Positioned.fill(
@@ -61,7 +62,7 @@ class _EgyptScreenState extends State<EgyptScreen> {
                 ),
                 Positioned(
                   child: Container(
-                    height: 33,
+                    height: 33.h,
                     decoration: BoxDecoration(
                       color: PreferenceUtils.getBool(PrefKeys.darkTheme)
                           ? Colors.black
@@ -84,7 +85,7 @@ class _EgyptScreenState extends State<EgyptScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Container(
-                          height: 1000,
+                          height: 1000.h,
                           decoration: BoxDecoration(
                             color:  PreferenceUtils.getBool(PrefKeys.darkTheme)
                                 ? Colors.black
@@ -113,15 +114,15 @@ class _EgyptScreenState extends State<EgyptScreen> {
                                     size: 20,),
                                   AppContentText(text: "USA, California",)
                                 ],),
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
 
                                 Text("About :",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
-                                SizedBox(height: 5,),
+                                SizedBox(height: 5.h,),
                                 AppContentText(text: " Egypt is home to some of the world's most iconic ancient landmarks, including the Great Pyramids of Giza which is the only remaining wonder of the ancient world.",
                                 ),
-                                SizedBox(height: 20,),
+                                SizedBox(height: 20.h,),
                                 Text("Best Place To Visit",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
@@ -130,7 +131,7 @@ class _EgyptScreenState extends State<EgyptScreen> {
                                 ),
 
                                 SizedBox(
-                                  height: 270,
+                                  height: 270.h,
                                   child:ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: title.length,
@@ -186,8 +187,8 @@ class _EgyptScreenState extends State<EgyptScreen> {
                 Stack(
                   alignment: Alignment.bottomLeft,
                   children:[ Container(
-                    height: 200,
-                    width: 150,
+                    height: 200.h,
+                    width: 150.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),

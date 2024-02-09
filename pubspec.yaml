@@ -49,6 +49,8 @@ dependencies:
   firebase_auth: ^4.16.0
   fluttertoast: ^8.2.4
   switch_button: ^0.0.1
+  toggle_switch: ^2.1.0
+  responsive_sizer: ^3.3.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
 import 'package:travel_app/screens/bar_item_pages/secound_page.dart';
 import 'package:travel_app/test_firebase/favorite_screen.dart';
@@ -53,7 +54,7 @@ class _MainPageState extends State<MainPage> {
               Color(0XFF95d5b2):
               Colors.blue,
               backgroundColor:  PreferenceUtils.getBool(PrefKeys.darkTheme)? Colors.black: Colors.transparent,
-              height: 60,
+              height: 60.h,
                 index: currentIndex,
                 items: items,
                 onTap: (value){

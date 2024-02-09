@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_transition_plus/flutter_page_transition_plus.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:travel_app/screens/countries_screen/france_screen.dart';
 import 'package:travel_app/screens/countries_screen/italy_screen.dart';
 import 'package:travel_app/screens/countries_screen/japan.dart';
@@ -26,10 +27,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  List tabBarImages = [
-    "assets/images/welcome_two.png",
-    "assets/images/welcome_two.png",
-    "assets/images/welcome_two.png",
+  List placesImages = [
+    "https://ec.europa.eu/eurostat/documents/747990/17157919/Davide_Angelini_AdobeStock_437556662_RV.jpg/ecb23e13-0be4-354d-f4a8-25c0ff17d413?t=1689325477418",
+    "https://webunwto.s3.eu-west-1.amazonaws.com/2020-07/wtd-old-event.jpg",
+    "https://www.un.org/sites/un2.un.org/files/2020/09/sustainable_tourism.jpg",
+  ];
+  List hotelsImages = [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7gxV9i7SsB3jdQLnFqBGguOcfZyQtRydIAkes9NP01zGspe8IJp0j-7cbpDwaQk6nB4M&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ4CC9opg8Pnyq3ZfnF-oKSuVq91yRdUGjrRVfyqcZklD11wUUtGklNvDJ7Iv2Uywkzms&usqp=CAU",
+    "https://www.traveloffpath.com/wp-content/uploads/2022/06/Caleia-Mar-Menor-Golf-Spa-Resort-Exterior-Pool-Shot-WIth-lights-Reflecting-on-the-water.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfj0_5Sb-b9w7P_37uqIanyXFQ6RxT7O5cwpzHgferGO5j01l7-kA02s1aeA5sFaOUShc&usqp=CAU"
+  ];
+  List header = [
+    "Getaway Mansion",
+    "Coastal Sunrise Haven",
+    "Summertime Palaces",
+    "Wintersky Chalets",
   ];
   List title =[
     "Australia",
@@ -77,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       drawer: NewsSettingsScreen(),
       appBar: AppBar(
         elevation: 0,
-        toolbarHeight: 50,
+        toolbarHeight: 50.h,
       ),
       body: ListView(
         children: [
@@ -111,15 +124,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       text: "Hotels",
                     ),
                     Tab(
-                      text: "emotions",
+                      text: "Reviews",
                     ),
                   ]),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8),
-            child: Container(
-              height: 250,
+            child:
+            Container(
+              height: 250.h,
               width: double.maxFinite,
               child: TabBarView(
                   controller: _tabController,
@@ -130,21 +144,57 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           margin: EdgeInsets.only(right: 15, top: 10),
-                          width: 200,
-                          height: 300,
+                          width: 200.w,
+                          height: 300.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            //color: Colors.white,
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    tabBarImages[index]
-                                ),
-                                fit: BoxFit.cover),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25),
+                            child: FadeInImage(
+                              image:
+                              NetworkImage(placesImages[index]),
+                              placeholder: const AssetImage("assets/images/loadingimage.png"),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         );
                       },
                     ),
-                    Text("secound"),
+                    ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding:EdgeInsets.only(right: 10,bottom: 20),
+                            child:  Stack(
+                              alignment: Alignment.bottomLeft,
+                              children:[ Container(
+                                height: 200.h,
+                                width: 150.w,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                ),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: FadeInImage(
+                                        image:
+                                        NetworkImage(hotelsImages[index],),
+                                      placeholder: const AssetImage("assets/images/loadingimage.png"),
+                                      fit: BoxFit.fill,
+                                    ),
+                                ),
+                              ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Text(header[index],style: TextStyle(color: Colors.white),),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
                     Text("third"),
                   ]),
             ),
@@ -158,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ],),
           ),
           SizedBox(
-            height: 120,
+            height: 120.h,
             child:ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: title.length,
@@ -198,8 +248,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: Column(
           children: [
             Container(
-              height: 50,
-              width: 50,
+              height: 50.h,
+              width: 50.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),

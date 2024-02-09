@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
 import 'package:travel_app/shared.dart';
 import 'package:travel_app/widgets/app_header_text.dart';
@@ -43,7 +44,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
             //backgroundColor: Colors.white,
             floating: false,
             pinned: false,
-            expandedHeight: 400,
+            expandedHeight: 400.h,
             flexibleSpace: Stack(
               children: [
                 const Positioned.fill(
@@ -57,7 +58,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
                 ),
                 Positioned(
                   child: Container(
-                    height: 33,
+                    height: 33.h,
                     decoration: BoxDecoration(
                       color: PreferenceUtils.getBool(PrefKeys.darkTheme)
                           ? Colors.black
@@ -80,7 +81,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Container(
-                          height: 1000,
+                          height: 1000.h,
                           decoration: BoxDecoration(
                             color:  PreferenceUtils.getBool(PrefKeys.darkTheme)
                                 ? Colors.black
@@ -100,7 +101,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
                                 ),
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
                                 Row(children: [
                                   Icon(Icons.location_on,
                                     color: PreferenceUtils.getBool(PrefKeys.darkTheme)
@@ -109,15 +110,15 @@ class _ThailandScreenState extends State<ThailandScreen> {
                                     size: 20,),
                                   AppContentText(text: "USA, California",)
                                 ],),
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
 
                                 Text("About :",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
-                                SizedBox(height: 5,),
+                                SizedBox(height: 5.h,),
                                 AppContentText(text: "Thailand is a Southeast Asian country and one of Asia’s most popular tourist destinations, with stunning beaches, vibrant nightlife, and a backpacker-friendly atmosphere. Sharing borders with Myanmar, Laos, Cambodia, and Malaysia, it is one of the top countries for exploring this region.",
                                 ),
-                                SizedBox(height: 20,),
+                                SizedBox(height: 20.h,),
                                 Text("Best Place To Visit",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
@@ -126,7 +127,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
                                 ),
 
                                 SizedBox(
-                                  height: 270,
+                                  height: 270.h,
                                   child:ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: title.length,
@@ -182,8 +183,8 @@ class _ThailandScreenState extends State<ThailandScreen> {
                 Stack(
                   alignment: Alignment.bottomLeft,
                   children:[ Container(
-                    height: 200,
-                    width: 150,
+                    height: 200.h,
+                    width: 150.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),

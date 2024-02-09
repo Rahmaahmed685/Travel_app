@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
 import 'package:travel_app/shared.dart';
 import 'package:travel_app/widgets/app_header_text.dart';
@@ -43,7 +44,7 @@ class _ItalyScreenState extends State<ItalyScreen> {
             //backgroundColor: Colors.white,
             floating: false,
             pinned: false,
-            expandedHeight: 400,
+            expandedHeight: 400.h,
             flexibleSpace: Stack(
               children: [
                 const Positioned.fill(
@@ -60,7 +61,7 @@ class _ItalyScreenState extends State<ItalyScreen> {
                 ),
                 Positioned(
                   child: Container(
-                    height: 33,
+                    height: 33.h,
                     decoration: BoxDecoration(
                       color: PreferenceUtils.getBool(PrefKeys.darkTheme)
                           ? Colors.black
@@ -83,7 +84,7 @@ class _ItalyScreenState extends State<ItalyScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Container(
-                          height: 1000,
+                          height: 1000.h,
                           decoration: BoxDecoration(
                             color:  PreferenceUtils.getBool(PrefKeys.darkTheme)
                                 ? Colors.black
@@ -103,7 +104,7 @@ class _ItalyScreenState extends State<ItalyScreen> {
                                     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
                                   ],
                                 ),
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
                                 Row(children: [
                                   Icon(Icons.location_on,
                                     color: PreferenceUtils.getBool(PrefKeys.darkTheme)
@@ -112,15 +113,15 @@ class _ItalyScreenState extends State<ItalyScreen> {
                                     size: 20,),
                                   AppContentText(text: "USA, California",)
                                 ],),
-                                SizedBox(height: 7,),
+                                SizedBox(height: 7.h,),
 
                                 Text("About :",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
-                                SizedBox(height: 5,),
+                                SizedBox(height: 5.h,),
                                 AppContentText(text: "Nestled in the heart of southern Europe, Italy graces the European continent with its distinctive boot-shaped form. It is an unrivaled repository of cultural treasures.",
                                 ),
-                                SizedBox(height: 20,),
+                                SizedBox(height: 20.h,),
                                 Text("Best Place To Visit",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
@@ -129,7 +130,7 @@ class _ItalyScreenState extends State<ItalyScreen> {
                                 ),
 
                                 SizedBox(
-                                  height: 270,
+                                  height: 270.h,
                                   child:ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: title.length,
@@ -185,8 +186,8 @@ class _ItalyScreenState extends State<ItalyScreen> {
                 Stack(
                   alignment: Alignment.bottomLeft,
                   children:[ Container(
-                    height: 200,
-                    width: 150,
+                    height: 200.h,
+                    width: 150.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),

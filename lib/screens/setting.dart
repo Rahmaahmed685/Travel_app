@@ -6,6 +6,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:travel_app/screens/manager/app_manager/app_cubit.dart';
 import 'package:travel_app/screens/notification.dart';
 import 'package:travel_app/screens/select_country.dart';
+import 'package:travel_app/screens/select_language.dart';
+import 'package:travel_app/screens/test_noti.dart';
 import 'package:travel_app/shared.dart';
 
 
@@ -31,8 +33,10 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const NewsSelectCountryScreen(),
+                PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: SelectCountryScreen(),
+                    duration: Duration(milliseconds: 300)
                 ),
               ).then((value) => setState(() {}));
             },
@@ -47,9 +51,9 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                 PageTransition(
                     type: PageTransitionType.rightToLeft,
                     child: NotificationScreen(),
-                    duration: Duration(milliseconds: 500)
+                    duration: Duration(milliseconds: 300)
                 ),
-              );
+              ).then((value) => setState(() {}));
             },
             icon: Icons.notifications,
             title: 'Notifications',
@@ -64,10 +68,19 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                   : 'light'),
 
           settingItem(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: SelectLanguageScreen(),
+                      duration: Duration(milliseconds: 300)
+                  ),
+                ).then((value) => setState(() {}));
+              },
               icon: Icons.language_rounded,
               title: 'Language',
-              value: 'en'),
+              value:PreferenceUtils.getString(PrefKeys.language)),
         ],
       ),
     );

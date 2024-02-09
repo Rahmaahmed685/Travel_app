@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:switch_button/switch_button.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import '../shared.dart';
 
@@ -18,10 +19,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     "Promotion",
     "Payment Request"
   ];
-  List allowNotitfi = [
-    "ON",
-    "OFF"
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,13 +29,36 @@ class _NotificationScreenState extends State<NotificationScreen> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10,),
-             Container(
-               decoration: BoxDecoration(
-                   color: Colors.grey.withOpacity(0.5),
-                   borderRadius: BorderRadius.circular(30)),
-                 child: InkWell(
-                     child: SwitchItem(title: "Allow Notification"))),
+             Center(
+               child: Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: Text("Allow Notifacation",style: Theme.of(context).textTheme.titleMedium,),
+               ),
+             ),
+             Center(
+               child: ToggleSwitch(
+                 minWidth: 90.0,
+                 cornerRadius: 20.0,
+                 activeBgColors: [[Colors.green[800]!], [Colors.red[800]!]],
+                 activeFgColor: Colors.white,
+                 inactiveBgColor: Colors.grey,
+                 inactiveFgColor: Colors.white,
+                 initialLabelIndex: 1,
+                 totalSwitches: 2,
+                 labels: ['Allowed', 'Blocked'],
+                 radiusStyle: true,
+                 onToggle: (index) {
+                   index == 0
+                       ? PreferenceUtils.setString(
+                     PrefKeys.notification,
+                     "Allowed",)
+                   : PreferenceUtils.setString(
+                     PrefKeys.notification,
+                     "Blocked",);
+                   print('switched to: $index');
+                 },
+               ),
+             ),
           SizedBox(height: 10,),
           Padding(
             padding: const EdgeInsets.only(top: 10,left: 10),
@@ -79,16 +99,9 @@ class _SwitchItemState extends State<SwitchItem> {
     return ListTile(
       title: Text(widget.title),
       subtitle: Text(isSelected ? "ON":"OFF"),
-      trailing: InkWell(
-        onTap: (){
-          isSelected
-              ? PreferenceUtils.setString(PrefKeys.notification,"ON")
-              : PreferenceUtils.setString(PrefKeys.notification,"OFF") ;
-        },
-        child: Switch(value: isSelected,
-            onChanged: itemSwitch,
-          activeColor: Colors.blueAccent,
-        ),
+      trailing: Switch(value: isSelected,
+          onChanged: itemSwitch,
+        activeColor: Colors.blueAccent,
       ),
     );
   }

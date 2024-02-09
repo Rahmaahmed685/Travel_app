@@ -102,8 +102,20 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               shape: BoxShape.circle,
                               color: Colors.grey.withOpacity(0.5),
                             ),
-                            child: Icon(Icons.favorite,color: Colors.red,)
+                            child:
+                            InkWell(
+                              onTap: (){
+                                  firestore
+                                      .collection("fav")
+                                      .doc(myFavorite[index].id)
+                                      .delete();
+                                  // NoteDatabase.deleteNote(myFavorite[index].id);
+                                  myFavorite.removeAt(index);
+                                  setState(() {});
+                                },
+                              child: Icon(Icons.favorite,color: Colors.red,)
                         ),
+                      ),
                       ),
                     ]
                 ),
