@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
+import '../generated/l10n.dart';
+import '../screens/countries_screen/australia.dart';
+import '../screens/countries_screen/egypt.dart';
+import '../screens/countries_screen/france_screen.dart';
+import '../screens/countries_screen/italy_screen.dart';
+import '../screens/countries_screen/japan.dart';
+import '../screens/countries_screen/malaysia.dart';
+import '../screens/countries_screen/maldives.dart';
+import '../screens/countries_screen/new_zealand.dart';
+import '../screens/countries_screen/singapora.dart';
+import '../screens/countries_screen/thailand.dart';
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -8,6 +20,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,19 +35,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 delegate: CustomSearchDelegate()
             );
           },
-          child: const Text(
-            "Search here...",
+          child: Text(
+            S().SearchHere,
           ),
         ),
         actions: [
           IconButton(
             onPressed: () {
-              // method to show the search bar
-              // showSearch(
-              //     context: context,
-              //     // delegate to customize the search bar
-              //     delegate: CustomSearchDelegate()
-              // );
             },
             icon: const Icon(Icons.search),
           )
@@ -45,17 +53,31 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 class CustomSearchDelegate extends SearchDelegate {
 // Demo list to show querying
-  List<String> searchTerms = [
-    "Apple",
-    "Banana",
-    "Mango",
-    "Pear",
-    "Watermelons",
-    "Blueberries",
-    "Pineapples",
-    "Strawberries"
+  List screens = [
+    AustraliaScreen(),
+    FranceScreen(),
+    ItalyScreen(),
+    JapanScreen(),
+    MalaysiaScreen(),
+    NewZealandScreen(),
+    SingaporeScreen(),
+    MaldivesScreen(),
+    ThailandScreen(),
+    EgyptScreen(),
   ];
 
+  List<String> searchTerms = [
+    "Australia",
+    "France",
+    "Italy",
+    "Japan",
+    "Malaysia",
+    "NewZealand",
+    "Singapore",
+    "Maldives",
+    "Thailand",
+    "Egypt",
+  ];
 // first overwrite to
 // clear the search text
   @override
@@ -123,7 +145,13 @@ class CustomSearchDelegate extends SearchDelegate {
            Lottie.asset("assets/animations/search.json")
               :
           ListTile(
-            title: Text(result),
+            title: InkWell(
+               onTap: (){
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                 screens[index]
+                 ));
+               },
+                child: Text(result)),
           );
       },
     );
