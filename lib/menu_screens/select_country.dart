@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:travel_app/shared.dart';
+import 'package:travel_app/generated/l10n.dart';
+import 'package:travel_app/model/shared.dart';
 
 class SelectCountryScreen extends StatefulWidget {
   const SelectCountryScreen({super.key});
@@ -12,11 +13,11 @@ class SelectCountryScreen extends StatefulWidget {
 
 class _SelectCountryScreenState extends State<SelectCountryScreen> {
   final countries = [
-    'US',
-    'EG',
-    'TU',
-    'FR',
-    'DE',
+    S().US,
+    S().EG,
+    S().TU,
+    S().FR,
+    S().DE,
   ];
 
   final images = [
@@ -32,7 +33,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        title: const Text('Select country'),
+        title: Text(S().SelectCountry),
       ),
       body: ListView.separated(
         itemCount: countries.length,

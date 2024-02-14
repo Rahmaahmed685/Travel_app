@@ -19,14 +19,14 @@ class ResponsiveButton extends StatelessWidget {
               type: PageTransitionType.rightToLeft,
               child: MainPage(),
 
-            duration: Duration(milliseconds: 400)
+            duration: Duration(milliseconds: 500)
         ),
         );
       },
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(),
+            border: Border.all(color: Colors.brown),
             // gradient: LinearGradient(
             //     colors: [
             //       Colors.brown.shade300,

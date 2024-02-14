@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../shared.dart';
+import '../screens/manager/app_manager/app_cubit.dart';
+import '../model/shared.dart';
 
 class SelectLanguageScreen extends StatefulWidget {
   const SelectLanguageScreen({super.key});
@@ -11,7 +13,7 @@ class SelectLanguageScreen extends StatefulWidget {
 }
 
 class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
-  final countries = [
+  final languages = [
     'English',
     'العربيه',
     'Deutsch',
@@ -32,15 +34,15 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
         title: const Text('Select Language'),
       ),
       body: ListView.separated(
-        itemCount: countries.length,
+        itemCount: languages.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () => saveSelectedCountry(countries[index]),
+            onTap: () => saveSelectedCountry(languages[index]),
             child: Container(
               padding: const EdgeInsets.all(15),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(countries[index],style: Theme.of(context).textTheme.titleSmall,),
+                child: Text(languages[index],style: Theme.of(context).textTheme.titleSmall,),
               ),
             ),
           );
@@ -69,4 +71,5 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
 
     Navigator.pop(context);
   }
+
 }

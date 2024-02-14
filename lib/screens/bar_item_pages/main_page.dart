@@ -1,13 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
+import 'package:travel_app/screens/bar_item_pages/search_bar/search_screen.dart';
 import 'package:travel_app/screens/bar_item_pages/secound_page.dart';
-import 'package:travel_app/test_firebase/favorite_screen.dart';
-import 'package:travel_app/test_firebase/test_fav.dart';
-import 'package:travel_app/search_bar/search_screen.dart';
+import 'package:travel_app/screens/bar_item_pages/favorite_screen.dart';
 
-import '../../shared.dart';
+import '../../model/shared.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -54,7 +52,7 @@ class _MainPageState extends State<MainPage> {
               Color(0XFF95d5b2):
               Colors.blue,
               backgroundColor:  PreferenceUtils.getBool(PrefKeys.darkTheme)? Colors.black: Colors.transparent,
-              height: 60.h,
+              height: 60,
                 index: currentIndex,
                 items: items,
                 onTap: (value){

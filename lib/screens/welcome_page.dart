@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:travel_app/widgets/app_header_text.dart';
-import 'package:travel_app/widgets/app_text.dart';
-import 'package:travel_app/widgets/responsive_button.dart';
+import '../model/responsive_button.dart';
+
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -65,7 +64,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           SizedBox(height: 5,),
                           Text(contents[index],
                             style: TextStyle(
-                                color: Colors.black54,
+                                color: Colors.white60,
                                 fontSize: 15
                             ),
                           ),

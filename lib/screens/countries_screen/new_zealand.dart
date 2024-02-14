@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
-import 'package:travel_app/shared.dart';
-import 'package:travel_app/widgets/app_header_text.dart';
-import 'package:travel_app/widgets/app_text.dart';
+import 'package:travel_app/model/shared.dart';
+import '../../model/app_header_text.dart';
+import '../../model/app_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../bar_item_pages/secound_page.dart';
 
 class NewZealandScreen extends StatefulWidget {
@@ -15,26 +15,26 @@ class NewZealandScreen extends StatefulWidget {
 }
 
 class _NewZealandScreenState extends State<NewZealandScreen> {
-  int gottenStars = 3;
   List title =[
-    "Kayaking",
-    "Snorkeling",
-    "Ballooning",
-    "Hiking",
+    "Auckland",
+    "Napier",
+    "Rotorua",
+    "Queenstown",
 
   ];
   List exploreImage =[
-    "assets/images/welcome_one.png",
-    "assets/images/welcome_three.png",
-    "assets/images/welcome_two.png",
-    "assets/images/welcome_one.png",
+    "https://cdn.britannica.com/68/179868-138-F4FC616A/Overview-discussion-Southern-Alps-warming-New-Zealand.jpg?w=800&h=450&c=crop",
+    "https://www.newzealand.com/assets/Job-2189_TNZ_Autumn_R52_5812_Final_HR__aWxvdmVrZWxseQo_FocalPointCropWzQzMCw2MzAsNDQsNDUsNzUsImpwZyIsNjUsMi41XQ.jpg",
+    "https://newzealandtrails.com/assets/Uploads/_resampled/FillWyIxMjAwIiwiNjMwIl0/Our-like-minded-guests-enjoying-the-Routeburn-Track2.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1XThCTen35tiCfYWvbKZd1m_hsN1T9ntOjw&usqp=CAU",
   ];
-  List screens = [
-    HomeScreen(),
-    SecoundPage(),
-    SizedBox(),
-    SizedBox(),
+  List url = [
+    'https://www.holidify.com/places/auckland/sightseeing-and-things-to-do.html',
+    'https://www.holidify.com/places/napier/sightseeing-and-things-to-do.html',
+    'https://www.holidify.com/places/rotorua/sightseeing-and-things-to-do.html',
+    'https://www.holidify.com/places/queenstown/sightseeing-and-things-to-do.html',
   ];
+  bool isFavorited = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +44,7 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
             //backgroundColor: Colors.white,
             floating: false,
             pinned: false,
-            expandedHeight: 400.h,
+            expandedHeight: 400,
             flexibleSpace: Stack(
               children: [
                 const Positioned.fill(
@@ -52,16 +52,12 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
                     image:
                     NetworkImage("https://cdn.britannica.com/68/179868-138-F4FC616A/Overview-discussion-Southern-Alps-warming-New-Zealand.jpg?w=800&h=450&c=crop"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
-                    // imageErrorBuilder: (context, error, stackTrace) {
-                    //   return Image.asset('assets/images/background.jpg',
-                    //       fit: BoxFit.cover);
-                    // },
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
                   child: Container(
-                    height: 33.h,
+                    height: 33,
                     decoration: BoxDecoration(
                       color: PreferenceUtils.getBool(PrefKeys.darkTheme)
                           ? Colors.black
@@ -84,7 +80,7 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Container(
-                          height: 1000.h,
+                          height: 1000,
                           decoration: BoxDecoration(
                             color:  PreferenceUtils.getBool(PrefKeys.darkTheme)
                                 ? Colors.black
@@ -101,10 +97,17 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
                                   children: [
                                     AppHeaderText(text: "NewZealand"),
 
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() => isFavorited = !isFavorited);
+                                      },
+                                      icon: isFavorited
+                                          ? Icon(Icons.favorite, color: Colors.red,)
+                                          : Icon(Icons.favorite_border),
+                                    ),
                                   ],
                                 ),
-                                SizedBox(height: 7.h,),
+                                SizedBox(height: 7,),
                                 Row(children: [
                                   Icon(Icons.location_on,
                                     color: PreferenceUtils.getBool(PrefKeys.darkTheme)
@@ -113,15 +116,15 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
                                     size: 20,),
                                   AppContentText(text: "USA, California",)
                                 ],),
-                                SizedBox(height: 7.h,),
+                                SizedBox(height: 7,),
 
                                 Text("About :",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
-                                SizedBox(height: 5.h,),
+                                SizedBox(height: 5,),
                                 AppContentText(text: "New Zealand lies to the southwest of the Pacific Ocean and promises breathtaking landscapes adorned with picturesque coastlines and the mightiest mountains.",
                                 ),
-                                SizedBox(height: 20.h,),
+                                SizedBox(height: 20,),
                                 Text("Best Place To Visit",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
@@ -130,29 +133,18 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
                                 ),
 
                                 SizedBox(
-                                  height: 270.h,
+                                  height: 270,
                                   child:ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: title.length,
                                       itemBuilder: (context, index) {
                                         return Padding(
                                           padding:EdgeInsets.only(right: 10,bottom: 20),
-                                          child: ExploreItems(
+                                          child: SubItems(
                                             title: title[index],
                                             color: Colors.purple.withOpacity(0.5),
                                             image: exploreImage[index],
-                                            onTab: () {
-                                              Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                    type: PageTransitionType.bottomToTop,
-                                                    child: screens[index],
-                                                    // inheritTheme: true,
-                                                    // ctx: context
-                                                    duration: Duration(milliseconds: 500)
-                                                ),
-                                              );
-                                            },
+                                            index: index,
                                           ),
                                         );
                                       }),
@@ -171,41 +163,49 @@ class _NewZealandScreenState extends State<NewZealandScreen> {
 
     );
   }
-  Widget ExploreItems({
+  Widget SubItems({
     required String title,
     required Color color,
     required String image,
-    required GestureTapCallback onTab,
+    required int index,
   }) {
     return Padding(
         padding: const EdgeInsets.only(top: 20,bottom: 20),
-        child: GestureDetector(
-          onTap: onTab,
-          child: Column(
-              children: [
-                Stack(
-                  alignment: Alignment.bottomLeft,
-                  children:[ Container(
-                    height: 200.h,
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: color
-                    ),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(image,fit: BoxFit.fill,)),
+        child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.bottomLeft,
+                children:[ Container(
+                  height: 200,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: color
                   ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text("$title",style: TextStyle(color: Colors.white),),
-                    ),
-                  ],
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(image,fit: BoxFit.fill,)),
                 ),
-              ]
-          ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child:
+                    InkWell(
+                      onTap: ()=> launch(url[index]),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]
         )
     );
   }

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
-import 'package:travel_app/shared.dart';
-import 'package:travel_app/widgets/app_header_text.dart';
-import 'package:travel_app/widgets/app_text.dart';
-import '../bar_item_pages/secound_page.dart';
+import 'package:travel_app/model/shared.dart';
+import '../../model/app_header_text.dart';
+import '../../model/app_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ThailandScreen extends StatefulWidget {
   const ThailandScreen({super.key});
@@ -15,26 +12,27 @@ class ThailandScreen extends StatefulWidget {
 }
 
 class _ThailandScreenState extends State<ThailandScreen> {
-  int gottenStars = 3;
   List title =[
-    "Kayaking",
-    "Snorkeling",
-    "Ballooning",
-    "Hiking",
-
+    "Phuket",
+    "Phi Phi Islands",
+    "Krabi",
+    "Bangkok",
   ];
   List exploreImage =[
-    "assets/images/welcome_one.png",
-    "assets/images/welcome_three.png",
-    "assets/images/welcome_two.png",
-    "assets/images/welcome_one.png",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpGSmBw9_HlDsiyoQtHztSeYljBwu2Q1gCYw&usqp=CAU",
+    "https://www.renown-travel.com/images/phi-phi-islands-l.jpg",
+    "https://cdn2.veltra.com/ptr/20180627100153_281505209_13137_0.jpg",
+    "https://www.intrepidtravel.com/v3/assets/blt0de87ff52d9c34a8/bltf3db7c6c40fc3eae/63c8b6b5f6810d6359582f3f/TTZT_thailand_ao-nang_beach-long-boat.jpg",
   ];
-  List screens = [
-    HomeScreen(),
-    SecoundPage(),
-    SizedBox(),
-    SizedBox(),
-  ];
+
+ List url = [
+   'https://www.holidify.com/places/phuket/sightseeing-and-things-to-do.html',
+   'https://www.holidify.com/places/phi-phi-islands/sightseeing-and-things-to-do.html',
+   'https://www.holidify.com/places/krabi/sightseeing-and-things-to-do.html',
+   'https://www.holidify.com/places/bangkok/sightseeing-and-things-to-do.html',
+ ];
+  bool isFavorited = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +42,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
             //backgroundColor: Colors.white,
             floating: false,
             pinned: false,
-            expandedHeight: 400.h,
+            expandedHeight: 400,
             flexibleSpace: Stack(
               children: [
                 const Positioned.fill(
@@ -52,13 +50,12 @@ class _ThailandScreenState extends State<ThailandScreen> {
                     image:
                     NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHC6qC77h6g01dADPXS7ctJ67FOTWk4DVS9A&usqp=CAU"),
                     placeholder: const AssetImage("assets/images/loadingimage.png"),
-
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
                   child: Container(
-                    height: 33.h,
+                    height: 33,
                     decoration: BoxDecoration(
                       color: PreferenceUtils.getBool(PrefKeys.darkTheme)
                           ? Colors.black
@@ -81,7 +78,7 @@ class _ThailandScreenState extends State<ThailandScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Container(
-                          height: 1000.h,
+                          height: 1000,
                           decoration: BoxDecoration(
                             color:  PreferenceUtils.getBool(PrefKeys.darkTheme)
                                 ? Colors.black
@@ -98,10 +95,17 @@ class _ThailandScreenState extends State<ThailandScreen> {
                                   children: [
                                     AppHeaderText(text: "Thailand"),
 
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
+                                    IconButton(onPressed: (){
+                                      setState(() => isFavorited = !isFavorited);
+                                    },
+                                        icon:
+                                        isFavorited
+                                            ? Icon(Icons.favorite,color: Colors.red,)
+                                            : Icon(Icons.favorite_border)
+                                    )
                                   ],
                                 ),
-                                SizedBox(height: 7.h,),
+                                SizedBox(height: 7,),
                                 Row(children: [
                                   Icon(Icons.location_on,
                                     color: PreferenceUtils.getBool(PrefKeys.darkTheme)
@@ -110,15 +114,15 @@ class _ThailandScreenState extends State<ThailandScreen> {
                                     size: 20,),
                                   AppContentText(text: "USA, California",)
                                 ],),
-                                SizedBox(height: 7.h,),
+                                SizedBox(height: 7,),
 
                                 Text("About :",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
-                                SizedBox(height: 5.h,),
+                                SizedBox(height: 5,),
                                 AppContentText(text: "Thailand is a Southeast Asian country and one of Asia’s most popular tourist destinations, with stunning beaches, vibrant nightlife, and a backpacker-friendly atmosphere. Sharing borders with Myanmar, Laos, Cambodia, and Malaysia, it is one of the top countries for exploring this region.",
                                 ),
-                                SizedBox(height: 20.h,),
+                                SizedBox(height: 20,),
                                 Text("Best Place To Visit",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
@@ -127,29 +131,18 @@ class _ThailandScreenState extends State<ThailandScreen> {
                                 ),
 
                                 SizedBox(
-                                  height: 270.h,
+                                  height: 270,
                                   child:ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: title.length,
                                       itemBuilder: (context, index) {
                                         return Padding(
                                           padding:EdgeInsets.only(right: 10,bottom: 20),
-                                          child: ExploreItems(
+                                          child: SubItems(
                                             title: title[index],
                                             color: Colors.purple.withOpacity(0.5),
                                             image: exploreImage[index],
-                                            onTab: () {
-                                              Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                    type: PageTransitionType.bottomToTop,
-                                                    child: screens[index],
-                                                    // inheritTheme: true,
-                                                    // ctx: context
-                                                    duration: Duration(milliseconds: 500)
-                                                ),
-                                              );
-                                            },
+                                            index: index,
                                           ),
                                         );
                                       }),
@@ -168,41 +161,49 @@ class _ThailandScreenState extends State<ThailandScreen> {
 
     );
   }
-  Widget ExploreItems({
+  Widget SubItems({
     required String title,
     required Color color,
     required String image,
-    required GestureTapCallback onTab,
+    required int index,
   }) {
     return Padding(
         padding: const EdgeInsets.only(top: 20,bottom: 20),
-        child: GestureDetector(
-          onTap: onTab,
-          child: Column(
-              children: [
-                Stack(
-                  alignment: Alignment.bottomLeft,
-                  children:[ Container(
-                    height: 200.h,
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: color
-                    ),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(image,fit: BoxFit.fill,)),
+        child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.bottomLeft,
+                children:[ Container(
+                  height: 200,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: color
                   ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text("$title",style: TextStyle(color: Colors.white),),
-                    ),
-                  ],
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(image,fit: BoxFit.fill,)),
                 ),
-              ]
-          ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child:
+                    InkWell(
+                      onTap: ()=> launch(url[index]),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]
         )
     );
   }

@@ -1,19 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
-import 'package:travel_app/screens/bar_item_pages/main_page.dart';
-import 'package:travel_app/screens/countries_screen/australia.dart';
-import 'package:travel_app/test_firebase/favorite_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:travel_app/screens/manager/app_manager/app_cubit.dart';
-import 'package:travel_app/screens/manager/login/login.dart';
-import 'package:travel_app/screens/setting.dart';
-import 'package:travel_app/shared.dart';
+import 'package:travel_app/model/shared.dart';
 import 'package:travel_app/screens/welcome_page.dart';
-import 'package:travel_app/search_bar/search_screen.dart';
-import 'package:travel_app/test_firebase/home_note.dart';
+import 'generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,15 +29,21 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
-      return ResponsiveSizer(
-        builder: (context, orientation, screenType) {
-          return MaterialApp(
-            title: 'Flutter Demo',
+      return MaterialApp(
+          locale: Locale(PreferenceUtils.getString(PrefKeys.language)),
+          supportedLocales :S.delegate.supportedLocales,
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        title: 'Flutter Demo',
             theme:
             ThemeData(
                 brightness: Brightness.light,
                 useMaterial3: false,
-                primarySwatch: Colors.green,
+                primarySwatch: Colors.blue,
                 appBarTheme: AppBarTheme(
                     color: Colors.white,
                     titleTextStyle: TextStyle(
@@ -111,15 +109,10 @@ class MyApp extends StatelessWidget {
                 ? ThemeMode.dark
                 : ThemeMode.light,
             debugShowCheckedModeBanner: false,
-            home:
-            MainPage(),
-            //   FirebaseAuth.instance.currentUser == null ?
-            //   LoginScreen():
-            //THomeScreen(),
+            home: WelcomePage()
           );
-        }  );
         },
-      ),
+      )
     );
   }
 }
