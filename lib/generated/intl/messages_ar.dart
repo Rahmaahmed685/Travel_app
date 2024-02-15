@@ -72,7 +72,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Vibrate": MessageLookupByLibrary.simpleMessage("الاهتزاز"),
         "ar": MessageLookupByLibrary.simpleMessage("العربيه"),
         "country": MessageLookupByLibrary.simpleMessage("الدوله"),
+<<<<<<< HEAD
         "discriptin": MessageLookupByLibrary.simpleMessage("أشهر الأنشطة"),
+=======
+        "discriptin": MessageLookupByLibrary.simpleMessage(
+            "أهلاً بك، هذه هي أشهر الأنشطة التي ننصحك بها ونتمنى لك قضاء وقت ممتع"),
+>>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
         "en": MessageLookupByLibrary.simpleMessage("الانجليزيه"),
         "language": MessageLookupByLibrary.simpleMessage("اللغه"),
         "theme": MessageLookupByLibrary.simpleMessage("المظهر")

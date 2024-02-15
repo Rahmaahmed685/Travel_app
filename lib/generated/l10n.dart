@@ -510,10 +510,17 @@ class S {
     );
   }
 
+<<<<<<< HEAD
   /// `Most Popular Actitvities`
   String get discriptin {
     return Intl.message(
       'Most Popular Actitvities',
+=======
+  /// `Welcome,these are the most popular Actitvities we recommend them to you and hope you have a good time`
+  String get discriptin {
+    return Intl.message(
+      'Welcome,these are the most popular Actitvities we recommend them to you and hope you have a good time',
+>>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
       name: 'discriptin',
       desc: '',
       args: [],

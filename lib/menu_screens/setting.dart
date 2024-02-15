@@ -212,7 +212,11 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(10),
                       child:  Text(
+<<<<<<< HEAD
                         "en",
+=======
+                        S().en,
+>>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
@@ -231,11 +235,16 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                       padding: const EdgeInsets.all(10),
                       // color: Colors.grey[200],
                       child:  Text(
+<<<<<<< HEAD
                         "ar",
+=======
+                        S().ar,
+>>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ),
+<<<<<<< HEAD
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(10),
@@ -245,6 +254,8 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
+=======
+>>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
                 ],
               ),
             ),

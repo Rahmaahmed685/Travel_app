@@ -64,7 +64,11 @@ class _WelcomePageState extends State<WelcomePage> {
                           SizedBox(height: 5,),
                           Text(contents[index],
                             style: TextStyle(
+<<<<<<< HEAD
                                 color: Colors.white70,
+=======
+                                color: Colors.white60,
+>>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
                                 fontSize: 15
                             ),
                           ),
