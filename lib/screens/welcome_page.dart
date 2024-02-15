@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:travel_app/widgets/app_header_text.dart';
-import 'package:travel_app/widgets/app_text.dart';
-import 'package:travel_app/widgets/responsive_button.dart';
+import '../model/responsive_button.dart';
+
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -14,7 +13,7 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   List images = [
     "assets/images/welcome_one.png",
-    "assets/images/mountain.png",
+    "assets/images/welcome_two.png",
     "assets/images/welcome_three.png",
   ];
   List headers = [
@@ -24,8 +23,8 @@ class _WelcomePageState extends State<WelcomePage> {
   ];
   List contents = [
     "Gives you an opportunity\nto discover the world.",
-    "You'll easily find yourself surrounded\nby absolute silence and miles of\nuntouched natural beauty \nfurther than you can see.",
-    "A breath of fresh sea air they also naturally\nincrease your levels of serotonin that\nstabilizes your mood, feelings of\nwell-being, and happiness.",
+    "You'll easily find yourself\nsurroundedby absolute silence ",
+    "A breath of fresh sea air they\nnaturally increase serotonin ",
   ];
   final controller = PageController(keepPage: true);
 
@@ -43,7 +42,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(images[index]),
-                      fit: BoxFit.fill
+                      fit: BoxFit.cover
                   ),
                 ),
 
@@ -65,7 +64,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           SizedBox(height: 5,),
                           Text(contents[index],
                             style: TextStyle(
-                                color: Colors.black54,
+                                color: Colors.white70,
                                 fontSize: 15
                             ),
                           ),

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../generated/l10n.dart';
-import '../screens/countries_screen/australia.dart';
-import '../screens/countries_screen/egypt.dart';
-import '../screens/countries_screen/france_screen.dart';
-import '../screens/countries_screen/italy_screen.dart';
-import '../screens/countries_screen/japan.dart';
-import '../screens/countries_screen/malaysia.dart';
-import '../screens/countries_screen/maldives.dart';
-import '../screens/countries_screen/new_zealand.dart';
-import '../screens/countries_screen/singapora.dart';
-import '../screens/countries_screen/thailand.dart';
+import '../../../generated/l10n.dart';
+import '../../countries_screen/australia.dart';
+import '../../countries_screen/egypt.dart';
+import '../../countries_screen/france_screen.dart';
+import '../../countries_screen/italy_screen.dart';
+import '../../countries_screen/japan.dart';
+import '../../countries_screen/malaysia.dart';
+import '../../countries_screen/maldives.dart';
+import '../../countries_screen/new_zealand.dart';
+import '../../countries_screen/singapora.dart';
+import '../../countries_screen/thailand.dart';
+
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -26,7 +28,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
+        backgroundColor: Color(0XFF829dba),
+        elevation: 0,
         title: InkWell(
           onTap: (){
             showSearch(
@@ -37,17 +40,27 @@ class _SearchScreenState extends State<SearchScreen> {
           },
           child: Text(
             S().SearchHere,
+            style: TextStyle(color: Colors.white),
           ),
         ),
         actions: [
           IconButton(
             onPressed: () {
             },
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search,color: Colors.white,),
           )
         ],
       ),
-    body: Center(child: Lottie.asset("assets/animations/search.json")),
+    body: Center(child: Container(
+    width: double.maxFinite,
+    height: double.maxFinite,
+    decoration: BoxDecoration(
+    image: DecorationImage(
+    image: AssetImage("assets/images/search.png"),
+    fit: BoxFit.fill
+    ),
+    ),),
+    )
     );
   }
 }
@@ -117,8 +130,21 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return
-          ListTile(
-            title: Text(result),
+          ListView.builder(
+            itemCount: matchQuery.length,
+            itemBuilder: (context, index) {
+              var result = matchQuery[index];
+              return
+                ListTile(
+                  title: InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                        screens[index]
+                        ));
+                      },
+                      child: Text(result)),
+                );
+            },
           );
       },
     );
@@ -135,15 +161,10 @@ class CustomSearchDelegate extends SearchDelegate {
       }
     }
     return ListView.builder(
-      itemCount:  query.isEmpty?
-          1:
-      matchQuery.length,
+      itemCount: matchQuery.length,
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return
-          query.isEmpty?
-           Lottie.asset("assets/animations/search.json")
-              :
           ListTile(
             title: InkWell(
                onTap: (){

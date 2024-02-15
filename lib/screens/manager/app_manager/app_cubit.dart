@@ -9,5 +9,7 @@ class AppCubit extends Cubit<AppState> {
 void themeChanged(){
   emit(AppSettingsChangeTheme());
 }
-
+  void languageChanged(){
+    emit(AppSettingsChangeLanguage());
+  }
 }

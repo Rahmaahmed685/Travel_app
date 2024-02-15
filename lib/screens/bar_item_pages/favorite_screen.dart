@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/model/place.dart';
-import 'package:travel_app/test_firebase/note.dart';
 
-import '../model/rating.dart';
-import '../shared.dart';
+import '../../generated/l10n.dart';
+import '../../model/rating.dart';
+import '../../model/shared.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -15,7 +15,7 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  List<Note> myFavorite = [];
+  List<Place> myFavorite = [];
   final firestore = FirebaseFirestore.instance;
   double rating = 3.5;
 
@@ -37,7 +37,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       myFavorite.clear();
       for (var document in value.docs) {
        // print(document.data());
-        final note = Note.fromMap(document.data());
+        final note = Place.fromMap(document.data());
          myFavorite.add(note);
       }
       setState(() {});
@@ -51,7 +51,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        title: const Text("Favorite"),
+        title:  Text(S().Favorite),
       ),
       body:
       ListView.builder(
@@ -129,11 +129,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 child: Text(
                   //"title",
                    myFavorite[index].title,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium
+
                 ),
               ),
               Padding(
@@ -144,11 +141,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     Text(
                       //"address",
                       myFavorite[index].content,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall
+
                     ),
                   ],
                 ),

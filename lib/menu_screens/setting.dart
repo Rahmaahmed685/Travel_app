@@ -1,14 +1,12 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:travel_app/generated/l10n.dart';
 import 'package:travel_app/screens/manager/app_manager/app_cubit.dart';
-import 'package:travel_app/screens/notification.dart';
-import 'package:travel_app/screens/select_country.dart';
-import 'package:travel_app/screens/select_language.dart';
-import 'package:travel_app/screens/test_noti.dart';
-import 'package:travel_app/shared.dart';
+import 'package:travel_app/menu_screens/notification.dart';
+import 'package:travel_app/menu_screens/select_country.dart';
+import 'package:travel_app/model/shared.dart';
 
 
 class NewsSettingsScreen extends StatefulWidget {
@@ -27,7 +25,8 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 20,bottom: 10),
-            child: Center(child: Text("Setting",style: Theme.of(context).textTheme.titleMedium)),
+            child: Center(child: Text(S().Setting,
+                style: Theme.of(context).textTheme.titleMedium)),
           ),
           settingItem(
             onTap: () {
@@ -41,7 +40,7 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
               ).then((value) => setState(() {}));
             },
             icon: Icons.language_rounded,
-            title: "country",
+            title: S().country,
             value: PreferenceUtils.getString(PrefKeys.newsCountry),
           ),
           settingItem(
@@ -56,30 +55,22 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
               ).then((value) => setState(() {}));
             },
             icon: Icons.notifications,
-            title: 'Notifications',
+            title: S().Notifications,
             value: PreferenceUtils.getString(PrefKeys.notification),
           ),
           settingItem(
               onTap: () => showChangeThemeBottomSheet(),
               icon: Icons.color_lens_rounded,
-              title: 'theme',
+              title: S().theme,
               value: PreferenceUtils.getBool(PrefKeys.darkTheme)
-                  ? 'dark'
-                  : 'light'),
+                  ? S().Dark
+                  : S().Light
+          ),
 
           settingItem(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: SelectLanguageScreen(),
-                      duration: Duration(milliseconds: 300)
-                  ),
-                ).then((value) => setState(() {}));
-              },
+              onTap: () => showChangeLanguageBottomSheet(),
               icon: Icons.language_rounded,
-              title: 'Language',
+              title:S().language,
               value:PreferenceUtils.getString(PrefKeys.language)),
         ],
       ),
@@ -115,7 +106,7 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
               ),
 
             const SizedBox(width: 5),
-            const Icon(Icons.keyboard_arrow_right_rounded, ),
+            const Icon(Icons.arrow_forward_ios,size: 15,),
           ],
         ),
       ),
@@ -141,7 +132,7 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
               mainAxisSize: MainAxisSize.min,
               children:[
                 const SizedBox(height: 20),
-                 Text('Select Theme',style: Theme.of(context).textTheme.titleSmall,),
+                 Text(S().SelectTheme,style: Theme.of(context).textTheme.titleSmall,),
                 InkWell(
                   onTap: () async {
                     await PreferenceUtils.setBool(
@@ -154,7 +145,7 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(10),
                     child:  Text(
-                      'Light',
+                      S().Light,
                    style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
@@ -173,7 +164,7 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
                     padding: const EdgeInsets.all(10),
                     // color: Colors.grey[200],
                     child:  Text(
-                      'Dark',
+                      S().Dark,
                     style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
@@ -188,6 +179,79 @@ class _NewsSettingsScreenState extends State<NewsSettingsScreen> {
     });
   }
 
-
-
+  showChangeLanguageBottomSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(35),
+                  topRight:Radius.circular(35) ),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children:[
+                  const SizedBox(height: 20),
+                  Text(
+                  S().SelectLanguage
+                  ,style: Theme.of(context).textTheme.titleSmall,),
+                  InkWell(
+                    onTap: () async {
+                      await PreferenceUtils.setString(
+                        PrefKeys.language,
+                        'en',
+                      );
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10),
+                      child:  Text(
+                        "en",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  InkWell(
+                    onTap: () async {
+                      await PreferenceUtils.setString(
+                        PrefKeys.language,
+                        "ar",
+                      );
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10),
+                      // color: Colors.grey[200],
+                      child:  Text(
+                        "ar",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    // color: Colors.grey[200],
+                    child:  Text(
+                      "स्वागतम्।",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+      },
+    ).then((value) {
+      BlocProvider.of<AppCubit>(context).languageChanged();
+    });
+  }
 }

@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:travel_app/model/shared.dart';
 import 'package:travel_app/model/place.dart';
-import 'package:travel_app/screens/bar_item_pages/home_screen.dart';
-import 'package:travel_app/shared.dart';
-import 'package:travel_app/widgets/app_header_text.dart';
-import 'package:travel_app/widgets/app_text.dart';
-import '../bar_item_pages/secound_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../model/app_header_text.dart';
+import '../../model/app_text.dart';
 
 class AustraliaScreen extends StatefulWidget {
   const AustraliaScreen({super.key});
@@ -17,60 +16,81 @@ class AustraliaScreen extends StatefulWidget {
 }
 
 class _AustraliaScreenState extends State<AustraliaScreen> {
-  List<Place> myFavorite = [];
+  final firestore = FirebaseFirestore.instance;
 
-  int gottenStars = 3;
+  List<Place> myCountries = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getPlacesFromFirestore();
+    //isLoggedIn();
+  }
+
+  void getPlacesFromFirestore() {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    firestore
+        .collection("countries")
+        .where('userId', isEqualTo: userId)
+        .get()
+        .then((value) {
+      myCountries.clear();
+      for (var document in value.docs) {
+        // print(document.data());
+        final note = Place.fromMap(document.data());
+        myCountries.add(note);
+      }
+      setState(() {});
+    }).catchError((error) {
+      print("Erorrrr=> $error");
+    });
+  }
+
   int index = 0;
   bool isFavorited = false;
   List title =[
-    "Kayaking",
-    "Snorkeling",
-    "Ballooning",
-    "Hiking",
+    "Sydney",
+    "Great Barrier Reef",
+    "Tasmania",
+    "Darwin",
 
   ];
-  List exploreImage =[
-    "assets/images/welcome_one.png",
-    "assets/images/welcome_three.png",
-    "assets/images/welcome_two.png",
-    "assets/images/welcome_one.png",
+  List subImage =[
+    "https://media.lmpm.website/uploads/sites/4/2022/10/Sydney-Harbour-Photo-1.jpg",
+    "https://www.mediastorehouse.com.au/p/623/sydney-skyline-night-9873203.jpg.webp",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjUJXRvYH9pHAal28dRRvZTVz1TQisfwT6JQ&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTshmtdYdzzNPYC3gvsQseoK1WSpV-VhI04tQ&usqp=CAU",
   ];
-  List screens = [
-    HomeScreen(),
-    SecoundPage(),
-    SizedBox(),
-    SizedBox(),
+  List url = [
+    'https://www.holidify.com/places/sydney/sightseeing-and-things-to-do.html',
+    'https://www.holidify.com/places/great-barrier-reef/sightseeing-and-things-to-do.html',
+    'https://www.holidify.com/places/tasmania/sightseeing-and-things-to-do.html',
+    'https://www.holidify.com/places/darwin/sightseeing-and-things-to-do.html'
   ];
-  final titleController = TextEditingController();
-  final contentController = TextEditingController();
-  final testController = TextEditingController();
 
-  final formKey = GlobalKey<FormState>();
-
-  final firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
     slivers: [
     SliverAppBar(
-    //backgroundColor: Colors.white,
       floating: false,
       pinned: false,
-      expandedHeight: 400.h,
+      expandedHeight: 400,
       flexibleSpace: Stack(
         children: [
-          const Positioned.fill(
+           Positioned.fill(
             child: FadeInImage(
               image:
-                  NetworkImage("https://img.freepik.com/free-photo/aerial-view-tokyo-cityscape-with-fuji-mountain-japan_335224-148.jpg"),
-                  placeholder: const AssetImage("assets/images/loadingimage.png"),
-              fit: BoxFit.fill,
+                  NetworkImage(myCountries[0].image),
+                  placeholder: AssetImage("assets/images/loadingimage.png"),
+              fit: BoxFit.cover,
             ),
           ),
           Positioned(
             child: Container(
-              height: 33.h,
+              height: 33,
               decoration: BoxDecoration(
                 color: PreferenceUtils.getBool(PrefKeys.darkTheme)
                     ? Colors.black
@@ -93,7 +113,7 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Container(
-                      height: 1000.h,
+                      height: 1000,
                       decoration: BoxDecoration(
                         color:  PreferenceUtils.getBool(PrefKeys.darkTheme)
                             ? Colors.black
@@ -108,13 +128,11 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              AppHeaderText(text: "Australia"),
+                              AppHeaderText(text:myCountries[0].title),
 
                               IconButton(
                                 onPressed: () {
-                                  isFavorited
-                                      ? removeFromFavScreen(index)
-                                      :addToFavScreen();
+                                 addToFavScreen();
                                   setState(() => isFavorited = !isFavorited);
                                 },
                                 icon: isFavorited
@@ -123,24 +141,24 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 7.h,),
+                          SizedBox(height: 7,),
                           Row(children: [
                             Icon(Icons.location_on,
                               color: PreferenceUtils.getBool(PrefKeys.darkTheme)
                                 ? Colors.white
                                 : Colors.blue,
                               size: 20,),
-                            AppContentText(text: "USA, California",)
+                            AppContentText(text: myCountries[0].content,)
                           ],),
-                          SizedBox(height: 7.h,),
+                          SizedBox(height: 7,),
 
                            Text("About :",
                              style: Theme.of(context).textTheme.titleMedium,
                            ),
-                           SizedBox(height: 5.h,),
+                           SizedBox(height: 5,),
                             AppContentText(text: "A land of breathtaking contrasts, Australia beckons with its unrivaled natural wonders, vibrant cities, and diverse cultural tapestry. ",
                                ),
-                      SizedBox(height: 20.h,),
+                      SizedBox(height: 20,),
                             Text("Best Place To Visit",
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
@@ -149,7 +167,7 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                                ),
 
                             SizedBox(
-                              height: 270.h,
+                              height: 270,
                               child:ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: title.length,
@@ -159,13 +177,13 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                                       child: SubItems(
                                         title: title[index],
                                         color: Colors.purple.withOpacity(0.5),
-                                        image: exploreImage[index],
+                                        image: subImage[index],
                                         onTab: () {
                                           Navigator.push(
                                             context,
                                             PageTransition(
                                                 type: PageTransitionType.bottomToTop,
-                                                child: screens[index],
+                                                child: url[index],
                                                 // inheritTheme: true,
                                                 // ctx: context
                                                 duration: Duration(milliseconds: 500)
@@ -205,8 +223,8 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
             Stack(
               alignment: Alignment.bottomLeft,
               children:[ Container(
-                height: 200.h,
-                width: 150.w,
+                height: 200,
+                width: 150,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
@@ -215,11 +233,21 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                 ),
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(image,fit: BoxFit.fill,)),
+                    child: Image.network(image,fit: BoxFit.fill,)),
               ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text("$title",style: TextStyle(color: Colors.white),),
+              child:  InkWell(
+                onTap: ()=> launch(url[index]),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -231,25 +259,24 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
 
   removeFromFavScreen(int index) {
     firestore.collection("fav")
-        .doc(myFavorite[index].id)
+        .doc(myCountries[index].id)
         .delete();
-    myFavorite.removeAt(index);
+    myCountries.removeAt(index);
     setState(() {});
   }
 
   addToFavScreen() {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    String title = myCountries[0].title;
 
-    String title = titleController.text;
-
-    String address = contentController.text;
-    String test = testController.text;
+    String content = myCountries[0].content;
+    String image = myCountries[0].image;
     bool isFavorite = true;
-    String id = DateTime.now().millisecondsSinceEpoch.toString();
+    String id = DateTime
+        .now()
+        .millisecondsSinceEpoch
+        .toString();
 
-    final note = Place(id, title, address,test,isFavorite);
+    final note = Place(id, title, content, isFavorite,image);
 
     //NoteDatabase.insertNotes(note);
 
