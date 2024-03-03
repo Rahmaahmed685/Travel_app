@@ -70,13 +70,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Vibrate": MessageLookupByLibrary.simpleMessage("Vibrate"),
         "ar": MessageLookupByLibrary.simpleMessage("ar"),
         "country": MessageLookupByLibrary.simpleMessage("country"),
-<<<<<<< HEAD
         "discriptin":
             MessageLookupByLibrary.simpleMessage("Most Popular Actitvities"),
-=======
         "discriptin": MessageLookupByLibrary.simpleMessage(
             "Welcome,these are the most popular Actitvities we recommend them to you and hope you have a good time"),
->>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
         "en": MessageLookupByLibrary.simpleMessage("en"),
         "language": MessageLookupByLibrary.simpleMessage("language"),
         "theme": MessageLookupByLibrary.simpleMessage("theme")

@@ -51,14 +51,10 @@ class _MainPageState extends State<MainPage> {
               color:  PreferenceUtils.getBool(PrefKeys.darkTheme)?
               Color(0XFF95d5b2):
               Colors.blue,
-<<<<<<< HEAD
               backgroundColor:
               PreferenceUtils.getBool(PrefKeys.darkTheme)
                   ? Colors.black
                   : Colors.transparent,
-=======
-              backgroundColor:  PreferenceUtils.getBool(PrefKeys.darkTheme)? Colors.black: Colors.transparent,
->>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
               height: 60,
                 index: currentIndex,
                 items: items,

@@ -131,12 +131,6 @@ class CustomSearchDelegate extends SearchDelegate {
         var result = matchQuery[index];
         return
           ListView.builder(
-<<<<<<< HEAD
-            itemCount: matchQuery.length,
-            itemBuilder: (context, index) {
-              var result = matchQuery[index];
-              return
-=======
             itemCount:  query.isEmpty?
             1:
             matchQuery.length,
@@ -146,7 +140,6 @@ class CustomSearchDelegate extends SearchDelegate {
                 query.isEmpty?
                 Lottie.asset("assets/animations/search.json")
                     :
->>>>>>> bbacd2639508fc7a5501421315b6b4ea3304a91e
                 ListTile(
                   title: InkWell(
                       onTap: (){
